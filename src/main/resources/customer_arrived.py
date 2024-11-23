@@ -2,13 +2,13 @@ import random
 import time
 import requests
 
-url = "http://localhost:8081/customerArrived"
+url = "http://localhost:8081/customer"
 
 while True:
     random_age = random.randint(10, 60)
     print("Random age of customer:", random_age)
 
-    payload = {"type": "customerArrived", "age": random_age, "timestamp": int(time.time() * 1000)}
+    payload = {"type": "customer", "age": random_age, "timestamp": int(time.time() * 1000)}
 
     try:
         print(f"Sent {payload} to {url}")

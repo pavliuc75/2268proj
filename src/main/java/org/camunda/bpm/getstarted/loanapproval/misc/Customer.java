@@ -1,6 +1,6 @@
 package org.camunda.bpm.getstarted.loanapproval.misc;
 
-public class CustomerArrived {
+public class Customer {
     public String type;
     public int age;
 }

@@ -15,6 +15,13 @@ define trigger PeriodicTrigger at every 5 sec;
 define stream CustomerArrivedStreamIn (type string, age int, timestamp long);
 
 @sink(type='log')
+@sink(
+    type='http',
+    publisher.url='http://localhost:8080/restaurant/customer-arrived',
+    method='POST',
+    headers="'Content-Type:application/json'",
+    @map(type='json')
+)
 define stream CustomerArrivedStreamOut (type string, age int, timestamp long);
 
 @sink(type='log')
@@ -90,14 +97,5 @@ on true
 select cast(ap.qty, 'long') as a
 insert into Logger_PlacesAvailableAtRestaurant;
 
-
-
--- @sink(
---     type='http',
---     publisher.url='http://localhost:8080/restaurant/customer-arrived',
---     method='POST',
---     headers="'Content-Type:application/json'",
---     @map(type='json')
--- )
 
 

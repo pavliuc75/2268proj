@@ -34,10 +34,4 @@ public class WebappExampleProcessApplication {
   public static void main(String... args) {
     SpringApplication.run(WebappExampleProcessApplication.class, args);
   }
-
-  // This method is called when the application is started. It starts a new instance of the process. (the file is called loanApproval.bpmn)
-//  @EventListener
-//  public void processPostDeploy(PostDeployEvent event) {
-//    runtimeService.startProcessInstanceByKey("loanApproval");
-//  }
 }
