@@ -1,0 +1,103 @@
+@App:name("HostStationAtRestaurant")
+@App:description("")
+
+-------------- tables ---------------
+define table QueueTable (type string, age int, timestamp long);
+define table AvailablePlacesTable (qty int);
+
+-------------- triggers ---------------
+define trigger InitTrigger at 'start';
+define trigger PeriodicTrigger at every 5 sec;
+
+-------------- streams ---------------
+@source(type='http', receiver.url='http://localhost:8081/customerArrived', @map(type='json'))
+@sink(type='log')
+define stream CustomerArrivedStreamIn (type string, age int, timestamp long);
+
+@sink(type='log')
+define stream CustomerArrivedStreamOut (type string, age int, timestamp long);
+
+@sink(type='log')
+define stream CustomerArrivedStreamOutHelper (ignore string);
+
+@source(type='http', receiver.url='http://localhost:8081/customerLeft', @map(type='json'))
+@sink(type='log')
+define stream CustomerLeftStreamIn (type string);
+
+@sink(type='log')
+define stream Logger_PlacesAvailableAtRestaurant(a long);
+
+@sink(type='log')
+define stream Logger_QueueLenght(a long);
+
+
+-------------- stream handlers ---------------
+@info(name='InitTrigger -> Create AvailablePlacesTable with 10 places')
+from InitTrigger
+select 10 as qty
+insert into AvailablePlacesTable;
+
+@info(name='CustomerLeftStreamIn -> Update AvailablePlacesTable by incrementing nr of available places')
+from CustomerLeftStreamIn as cl
+join AvailablePlacesTable as ap
+on true
+update AvailablePlacesTable
+    set AvailablePlacesTable.qty = AvailablePlacesTable.qty + 1
+    on AvailablePlacesTable.qty > -1; --to select the only row
+
+
+
+@info(name='CustomerArrivedStreamIn -> add entry to QueueTable table')
+from CustomerArrivedStreamIn
+select *
+insert into QueueTable;
+
+@info(name='PeriodicTrigger -> we check if there are places in the restaurant and, if yes, continue with the CustomerArrivedStreamOutHelper')
+from PeriodicTrigger[AvailablePlacesTable.qty > 0 in AvailablePlacesTable]
+select 'there are places at restaurant' as ignore
+insert into CustomerArrivedStreamOutHelper;
+
+@info(name='PeriodicTrigger -> if any places available (AvailablePlacesTable) then send customer from QueueTable to camunda (CustomerArrivedStreamOut stream)')
+from CustomerArrivedStreamOutHelper as h
+join QueueTable as q
+on true
+select q.type as type, q.age as age, q.timestamp as timestamp
+order by q.timestamp
+limit 1
+insert into CustomerArrivedStreamOut;
+
+@info(name='CustomerArrivedStreamOut -> remove customer from QueueTable')
+from CustomerArrivedStreamOut
+delete QueueTable
+    on QueueTable.timestamp == timestamp;
+
+@info(name='CustomerArrivedStreamOut -> decrement AvailablePlacesTable')
+from CustomerArrivedStreamOut
+update AvailablePlacesTable
+    set AvailablePlacesTable.qty = AvailablePlacesTable.qty - 1
+    on AvailablePlacesTable.qty > -1; --to select the only row
+
+
+@info(name='PeriodicTrigger -> Logger: log current queue length')
+from PeriodicTrigger as tr join QueueTable as q on true
+select count(q.type) as a
+insert into Logger_QueueLenght;
+
+@info(name='PeriodicTrigger -> Logger: log current nr of available places')
+from PeriodicTrigger as tr
+join AvailablePlacesTable as ap
+on true
+select cast(ap.qty, 'long') as a
+insert into Logger_PlacesAvailableAtRestaurant;
+
+
+
+-- @sink(
+--     type='http',
+--     publisher.url='http://localhost:8080/restaurant/customer-arrived',
+--     method='POST',
+--     headers="'Content-Type:application/json'",
+--     @map(type='json')
+-- )
+
+
