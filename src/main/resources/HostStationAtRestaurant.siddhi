@@ -2,14 +2,18 @@
 @App:description("")
 
 -------------- tables ---------------
+-------------- ------ ---------------
 define table QueueTable (type string, age int, timestamp long);
 define table AvailablePlacesTable (qty int);
 
 -------------- triggers ---------------
+-------------- ------ ---------------
 define trigger InitTrigger at 'start';
 define trigger PeriodicTrigger at every 5 sec;
+define trigger PeriodicTrigger2 at every 30 sec;
 
 -------------- streams ---------------
+-------------- ------ ---------------
 @source(type='http', receiver.url='http://localhost:8081/customerArrived', @map(type='json'))
 @sink(type='log')
 define stream CustomerArrivedStreamIn (type string, age int, timestamp long);
@@ -37,8 +41,15 @@ define stream Logger_PlacesAvailableAtRestaurant(a long);
 @sink(type='log')
 define stream Logger_QueueLenght(a long);
 
+@sink(type='log')
+define stream Logger_CountCustomerLeftEveryMinute(nr long);
+
+@sink(type='log')
+define stream Alert_CustomerStaysForTooLongAtRestaurant(ignore string);
+
 
 -------------- stream handlers ---------------
+-------------- ------ ------------------------
 @info(name='InitTrigger -> Create AvailablePlacesTable with 10 places')
 from InitTrigger
 select 10 as qty
@@ -51,6 +62,17 @@ on true
 update AvailablePlacesTable
     set AvailablePlacesTable.qty = AvailablePlacesTable.qty + 1
     on AvailablePlacesTable.qty > -1; --to select the only row
+
+@info(name='CustomerLeftStreamIn, PeriodicTrigger -> calculate how many customers leave the restaurant every 10 minutes')
+from PeriodicTrigger2 as p join CustomerLeftStreamIn#window.time(10 min) as cl on true
+select count() as nr
+insert into Logger_CountCustomerLeftEveryMinute;
+
+@info(name='CustomerLeftStreamIn -> Alert_CustomerStaysForTooLongAtRestaurant')
+from every e1 = CustomerLeftStreamIn ->
+            not CustomerLeftStreamIn for 1 min
+select 'customers stay for too long' as ignore
+insert into Alert_CustomerStaysForTooLongAtRestaurant;
 
 
 
@@ -96,6 +118,3 @@ join AvailablePlacesTable as ap
 on true
 select cast(ap.qty, 'long') as a
 insert into Logger_PlacesAvailableAtRestaurant;
-
-
-

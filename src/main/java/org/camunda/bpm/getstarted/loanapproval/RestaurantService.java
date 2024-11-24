@@ -24,12 +24,12 @@ public class RestaurantService {
 
     public String startNewProcessInstance(Customer customer) {
         String sellFoodProcessDefinitionKey = "loanApproval";
+        String messageName = "CustomerArrived";
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("age", customer.age);
         variables.put("waitingTime", 10);
-
-        String messageName = "CustomerArrived";
+        variables.put("isPhysicalCustomer", true);
 
         ProcessInstance pi = runtimeService.createMessageCorrelation(messageName)
                 .setVariables(variables)
