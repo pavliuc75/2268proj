@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0kp4jvd" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.27.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <decision id="Decision_0eigev3" name="Decide if discount">
+    <informationRequirement id="InformationRequirement_1lhht7k">
+      <requiredInput href="#InputData_1pcvcpu" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0cifqk1">
+      <requiredInput href="#InputData_19owtr2" />
+    </informationRequirement>
+    <authorityRequirement id="AuthorityRequirement_1ds19he">
+      <requiredAuthority href="#KnowledgeSource_0doy8ve" />
+    </authorityRequirement>
+    <decisionTable id="DecisionTable_04g5evy">
+      <input id="Input_1" label="Age" biodi:width="192" camunda:inputVariable="age">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0lvvfdo" label="WaitingTime" biodi:width="192" camunda:inputVariable="waitingTime">
+        <inputExpression id="LiteralExpression_18kvqi2" typeRef="integer">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="isDiscount" name="isDiscount" typeRef="boolean" />
+      <rule id="DecisionRule_0fyfhn5">
+        <inputEntry id="UnaryTests_0luh11x">
+          <text>[0..25]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ujiiag">
+          <text>&lt;= 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fec6n4">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16jhl8j">
+        <inputEntry id="UnaryTests_1ke0co1">
+          <text>[26..65]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dub23h">
+          <text>&lt;= 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w4wdva">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0aaidf8">
+        <inputEntry id="UnaryTests_1pbw2lo">
+          <text>[66..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iymx5x">
+          <text>&lt;= 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kvb5gp">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_051yng1">
+        <inputEntry id="UnaryTests_1wh1jh9">
+          <text>[0..25]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gzgf85">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05yvd1k">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13hrd1f">
+        <inputEntry id="UnaryTests_1e4gufe">
+          <text>[26..65]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wl47j1">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_057eggd">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ij8d97">
+        <inputEntry id="UnaryTests_0v2s5jc">
+          <text>[66..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c24ljn">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16zxv4s">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1pcvcpu" name="Age" />
+  <inputData id="InputData_19owtr2" name="Cooking waiting time" />
+  <knowledgeSource id="KnowledgeSource_0doy8ve" name="Restaurant Discount Policy" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0eigev3">
+        <dc:Bounds height="80" width="180" x="230" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_10h0amx" dmnElementRef="InputData_1pcvcpu">
+        <dc:Bounds height="45" width="125" x="157" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_02g1269" dmnElementRef="InformationRequirement_1lhht7k">
+        <di:waypoint x="220" y="297" />
+        <di:waypoint x="290" y="200" />
+        <di:waypoint x="290" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1d56o05" dmnElementRef="InputData_19owtr2">
+        <dc:Bounds height="45" width="125" x="378" y="298" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_08c0vj1" dmnElementRef="InformationRequirement_0cifqk1">
+        <di:waypoint x="441" y="298" />
+        <di:waypoint x="350" y="200" />
+        <di:waypoint x="350" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0vrthw7" dmnElementRef="KnowledgeSource_0doy8ve">
+        <dc:Bounds height="63" width="100" x="530" y="108" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0llwjlr" dmnElementRef="AuthorityRequirement_1ds19he">
+        <di:waypoint x="530" y="140" />
+        <di:waypoint x="410" y="140" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

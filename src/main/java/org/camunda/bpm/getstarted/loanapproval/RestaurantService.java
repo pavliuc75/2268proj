@@ -24,7 +24,18 @@ public class RestaurantService {
 
     public String startNewProcessInstance(Customer customer) {
         String sellFoodProcessDefinitionKey = "loanApproval";
-        ProcessInstance pi = runtimeService.startProcessInstanceByKey(sellFoodProcessDefinitionKey);
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("age", customer.age);
+        variables.put("waitingTime", 10);
+
+        String messageName = "CustomerArrived";
+
+        ProcessInstance pi = runtimeService.createMessageCorrelation(messageName)
+                .setVariables(variables)
+                .correlateStartMessage();
+
+//        ProcessInstance pi = runtimeService.startProcessInstanceByKey(sellFoodProcessDefinitionKey, variables);
 
         String s = "Started process instance: " + pi.getId();
         System.out.println(s);

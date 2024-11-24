@@ -16,22 +16,45 @@
  */
 package org.camunda.bpm.getstarted.loanapproval;
 
-import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
+import org.camunda.bpm.engine.DecisionService;
+import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
-import org.camunda.bpm.spring.boot.starter.event.PostDeployEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.event.EventListener;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 @EnableProcessApplication
 public class WebappExampleProcessApplication {
 
-  @Autowired
-  private RuntimeService runtimeService;
-
   public static void main(String... args) {
-    SpringApplication.run(WebappExampleProcessApplication.class, args);
+    ConfigurableApplicationContext context = SpringApplication.run(WebappExampleProcessApplication.class, args);
+
+    DecisionService decisionService = context.getBean(DecisionService.class);
+
+    VariableMap variables = Variables.createVariables()
+            .putValue("season", "Spring")
+            .putValue("guestCount", 10);
+
+    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
+    String desiredDish = dishDecisionResult.getSingleEntry();
+
+    System.out.println("Desired dish: " + desiredDish);
+
+    VariableMap variables2 = Variables.createVariables()
+            .putValue("age", 30)
+            .putValue("waitingTime", 10);
+    DmnDecisionTableResult dishDecisionResult2 = decisionService.evaluateDecisionTableByKey("Decision_0eigev3", variables2);
+
+    String desiredDish2 = dishDecisionResult2.getSingleEntry();
+    System.out.println("Desired dish: " + desiredDish2);
+
   }
+
+
+
+
 }
