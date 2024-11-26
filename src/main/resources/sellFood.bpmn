@@ -68,7 +68,6 @@ In our case also the siddhi server</bpmn2:text>
         <bpmn2:flowNodeRef>sid-79BEAF62-538B-4A61-A0F8-9A67798451BF</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Gateway_0475cud</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Gateway_0jj8wf5</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>EndEvent_1</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Event_0vbc2si</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-F414B33C-B4FA-4EA7-88D8-43F349B8DE65</bpmn2:flowNodeRef>
@@ -83,6 +82,7 @@ In our case also the siddhi server</bpmn2:text>
         <bpmn2:flowNodeRef>Activity_0301n99</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-527B81F6-1544-4A99-A162-42DBEFAE76DD</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_0vhvmi7" name="Cooks">
         <bpmn2:flowNodeRef>sid-6B99CD0B-1C88-45C2-BC4C-0E8804A517E1</bpmn2:flowNodeRef>
@@ -469,7 +469,7 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>Flow_011c7en</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="Flow_0q5ppup" name="yes" sourceRef="sid-79BEAF62-538B-4A61-A0F8-9A67798451BF" targetRef="Gateway_0475cud">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{true}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isOrderFulfilled}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:exclusiveGateway id="Gateway_0jj8wf5">
       <bpmn2:incoming>Flow_0th53tc</bpmn2:incoming>
@@ -477,12 +477,8 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>Flow_0m5lf84</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="Flow_0th53tc" name="no" sourceRef="sid-79BEAF62-538B-4A61-A0F8-9A67798451BF" targetRef="Gateway_0jj8wf5">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isOrderFulfilled}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:userTask id="sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7" name="Cleanup">
-      <bpmn2:incoming>Flow_1eq1sp3</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_0b7kb5x</bpmn2:outgoing>
-    </bpmn2:userTask>
     <bpmn2:endEvent id="EndEvent_1" name="Customer handled">
       <bpmn2:incoming>Flow_011c7en</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -617,11 +613,7 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:incoming>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1ugf9vf</bpmn2:outgoing>
     </bpmn2:task>
-    <bpmn2:task id="sid-9492F81A-5D24-474D-BD39-ACF556455659" name="Leave restaurant">
-      <bpmn2:incoming>Flow_0hgehhv</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_00bu95j</bpmn2:outgoing>
-    </bpmn2:task>
-    <bpmn2:task id="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" name="Collect payment">
+    <bpmn2:serviceTask id="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" name="Collect payment" camunda:class="org.camunda.bpm.getstarted.loanapproval.process.delegates.CollectPaymentDelegate">
       <bpmn2:incoming>Flow_0hb9krt</bpmn2:incoming>
       <bpmn2:outgoing>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:outgoing>
       <bpmn2:ioSpecification>
@@ -632,7 +624,15 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:dataOutputAssociation id="DataOutputAssociation_07m14po">
         <bpmn2:targetRef>DataObjectReference_0a8kpjn</bpmn2:targetRef>
       </bpmn2:dataOutputAssociation>
+    </bpmn2:serviceTask>
+    <bpmn2:task id="sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7" name="Cleanup">
+      <bpmn2:incoming>Flow_1eq1sp3</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0b7kb5x</bpmn2:outgoing>
     </bpmn2:task>
+    <bpmn2:userTask id="sid-9492F81A-5D24-474D-BD39-ACF556455659" name="Leave restaurant">
+      <bpmn2:incoming>Flow_0hgehhv</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_00bu95j</bpmn2:outgoing>
+    </bpmn2:userTask>
   </bpmn2:process>
   <bpmn2:error id="sid-1250c851-b9c4-4e8b-88c7-43e43b005af0" errorCode="NO_INGRIDIENTS_LEFT" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -720,26 +720,11 @@ In our case also the siddhi server</bpmn2:text>
       <bpmndi:BPMNShape id="sid-C7BA5B18-57E7-4CEA-B0E5-C9D779B60560_gui" bpmnElement="sid-C7BA5B18-57E7-4CEA-B0E5-C9D779B60560">
         <dc:Bounds x="1440" y="869" width="41" height="41" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xyu3v2_di" bpmnElement="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66">
-        <dc:Bounds x="2050" y="440" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1px7nd4_di" bpmnElement="sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7">
+        <dc:Bounds x="4550" y="600" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_11mucfh_di" bpmnElement="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC">
-        <dc:Bounds x="2250" y="490" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0h6jk1t_di" bpmnElement="Activity_0301n99">
-        <dc:Bounds x="795" y="654" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1npgiaf_di" bpmnElement="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22">
-        <dc:Bounds x="2850" y="360" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0dv88nw_di" bpmnElement="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD">
-        <dc:Bounds x="3887" y="612" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1a24hfi_di" bpmnElement="sid-9492F81A-5D24-474D-BD39-ACF556455659">
+      <bpmndi:BPMNShape id="Activity_14i2jqv_di" bpmnElement="sid-9492F81A-5D24-474D-BD39-ACF556455659">
         <dc:Bounds x="4418" y="410" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0vi1ffv_di" bpmnElement="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF">
-        <dc:Bounds x="3690" y="612" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_188m44u_di" bpmnElement="Activity_188m44u" isExpanded="false">
         <dc:Bounds x="1593" y="850" width="100" height="80" />
@@ -872,9 +857,6 @@ In our case also the siddhi server</bpmn2:text>
       <bpmndi:BPMNShape id="Gateway_0jj8wf5_di" bpmnElement="Gateway_0jj8wf5" isMarkerVisible="true">
         <dc:Bounds x="4815" y="715" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0qgl13a_di" bpmnElement="sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7">
-        <dc:Bounds x="4550" y="600" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndEvent_1">
         <dc:Bounds x="5032" y="622" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -975,6 +957,24 @@ In our case also the siddhi server</bpmn2:text>
       <bpmndi:BPMNShape id="Activity_13cmyt9_di" bpmnElement="Activity_1q555ii">
         <dc:Bounds x="795" y="440" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xyu3v2_di" bpmnElement="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66">
+        <dc:Bounds x="2050" y="440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11mucfh_di" bpmnElement="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC">
+        <dc:Bounds x="2250" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h6jk1t_di" bpmnElement="Activity_0301n99">
+        <dc:Bounds x="795" y="654" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1npgiaf_di" bpmnElement="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22">
+        <dc:Bounds x="2850" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dv88nw_di" bpmnElement="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD">
+        <dc:Bounds x="3887" y="612" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wa79wg_di" bpmnElement="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF">
+        <dc:Bounds x="3690" y="612" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1dxfykc_di" bpmnElement="Event_1dxfykc">
         <dc:Bounds x="1675" y="912" width="36" height="36" />
@@ -1420,13 +1420,13 @@ In our case also the siddhi server</bpmn2:text>
           <dc:Bounds x="2972.808366815352" y="987.880745306385" width="67.1186379607193" height="12.024521788589595" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_07m14po_di" bpmnElement="DataOutputAssociation_07m14po">
-        <di:waypoint x="3740" y="692" />
-        <di:waypoint x="3740" y="725" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1s8652j_di" bpmnElement="DataOutputAssociation_1s8652j">
         <di:waypoint x="750" y="1030" />
         <di:waypoint x="899" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_07m14po_di" bpmnElement="DataOutputAssociation_07m14po">
+        <di:waypoint x="3740" y="692" />
+        <di:waypoint x="3740" y="725" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0w7ialw_di" bpmnElement="Association_0w7ialw">
         <di:waypoint x="2646" y="170" />

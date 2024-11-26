@@ -10,7 +10,7 @@ public class CollectPaymentDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         makeReceipt();
 
-//        delegateExecution.setVariable("isOrderFulfilled", true);
+        delegateExecution.setVariable("isOrderFulfilled", true);
     }
 
     private void makeReceipt() {
