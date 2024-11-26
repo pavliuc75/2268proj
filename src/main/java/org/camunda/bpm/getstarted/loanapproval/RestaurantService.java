@@ -28,7 +28,6 @@ public class RestaurantService {
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("age", customer.age);
-        variables.put("waitingTime", 10);
         variables.put("isPhysicalCustomer", true);
 
         ProcessInstance pi = runtimeService.createMessageCorrelation(messageName)

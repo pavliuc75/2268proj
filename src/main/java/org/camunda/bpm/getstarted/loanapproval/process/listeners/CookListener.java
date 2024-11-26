@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component("chooseFood")
-public class ChooseFoodListener implements TaskListener {
+@Component("cook")
+public class CookListener implements TaskListener {
     private TaskService taskService;
 
-    public ChooseFoodListener(TaskService taskService) {
+    public CookListener(TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -21,7 +21,7 @@ public class ChooseFoodListener implements TaskListener {
         String taskId = delegateTask.getId();
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("isStillHungry", false); //simulate user input
+        variables.put("waitingTime", 10); //simulate waiting time
 
         taskService.complete(taskId, variables);
     }

@@ -35,26 +35,12 @@ public class WebappExampleProcessApplication {
 
     DecisionService decisionService = context.getBean(DecisionService.class);
 
-    VariableMap variables = Variables.createVariables()
-            .putValue("season", "Spring")
-            .putValue("guestCount", 10);
-
-    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
-    String desiredDish = dishDecisionResult.getSingleEntry();
-
-    System.out.println("Desired dish: " + desiredDish);
-
     VariableMap variables2 = Variables.createVariables()
             .putValue("age", 30)
             .putValue("waitingTime", 10);
-    DmnDecisionTableResult dishDecisionResult2 = decisionService.evaluateDecisionTableByKey("Decision_0eigev3", variables2);
+    DmnDecisionTableResult res = decisionService.evaluateDecisionTableByKey("Decision_0eigev3", variables2);
 
-    String desiredDish2 = dishDecisionResult2.getSingleEntry();
-    System.out.println("Desired dish: " + desiredDish2);
-
+    Boolean res1 = res.getSingleEntry();
+    System.out.printf("IsDiscount: %s\n", res1);
   }
-
-
-
-
 }

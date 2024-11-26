@@ -39,14 +39,11 @@ In our case also the siddhi server</bpmn2:text>
         <bpmn2:flowNodeRef>Activity_0nay865</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Gateway_0b39xdx</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0rvbdtf</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-9492F81A-5D24-474D-BD39-ACF556455659</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-9515F2CA-0C45-4422-981C-08F624AB4069</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-60808514-48F6-46CC-8116-0A9571FB1710</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-96AEBEBD-2739-44F9-9FAC-99C89A63CA9C</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-AE450D80-4FAC-4C24-A89D-93FDE31DCB56</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-E651F094-2FEF-4731-AC9F-7C0A11633A22</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-82F0B5AC-4D75-46AF-A1B8-700DF896346E</bpmn2:flowNodeRef>
@@ -54,8 +51,11 @@ In our case also the siddhi server</bpmn2:text>
         <bpmn2:flowNodeRef>sid-C00422B3-6514-486C-B18D-7592A21ADA33</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Event_08m2k55</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Gateway_1q0mbje</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_1q555ii</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-E651F094-2FEF-4731-AC9F-7C0A11633A22</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-9492F81A-5D24-474D-BD39-ACF556455659</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_1jjcg1h" name="Waiter">
         <bpmn2:flowNodeRef>Gateway_0idi2vl</bpmn2:flowNodeRef>
@@ -77,12 +77,12 @@ In our case also the siddhi server</bpmn2:text>
         <bpmn2:flowNodeRef>sid-25939BB0-1421-4C52-8766-716C5FA6FC27</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-B038F0B0-0430-4D79-B1A7-FA292895F89F</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-1A2FE890-2CF9-4782-A54D-35832E82A7D1</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>sid-527B81F6-1544-4A99-A162-42DBEFAE76DD</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_10jn46y</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>sid-5D179A49-C6BE-4880-89ED-E3526533FA8B</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_1h2m1nv</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0301n99</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-527B81F6-1544-4A99-A162-42DBEFAE76DD</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_0vhvmi7" name="Cooks">
         <bpmn2:flowNodeRef>sid-6B99CD0B-1C88-45C2-BC4C-0E8804A517E1</bpmn2:flowNodeRef>
@@ -135,13 +135,13 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>Flow_1icngig</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="Flow_0nkodhz" name="No" sourceRef="Gateway_0idi2vl" targetRef="Gateway_0b39xdx">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!readyToMakeOrder}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isStillHungry}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_1tm384j" name="" sourceRef="Gateway_0b39xdx" targetRef="Activity_1q555ii" />
     <bpmn2:sequenceFlow id="Flow_1nr21gz" name="" sourceRef="Activity_1q555ii" targetRef="Activity_0301n99" />
     <bpmn2:sequenceFlow id="Flow_0l31619" name="" sourceRef="Activity_0301n99" targetRef="Gateway_0idi2vl" />
     <bpmn2:sequenceFlow id="Flow_1icngig" name="Yes" sourceRef="Gateway_0idi2vl" targetRef="Activity_0rvbdtf">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{readyToMakeOrder}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isStillHungry}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_0xktr24" sourceRef="Activity_0nay865" targetRef="Gateway_0b39xdx" />
     <bpmn2:sequenceFlow id="Flow_1hcs4zm" sourceRef="Activity_0rvbdtf" targetRef="sid-0278151D-1BFB-43A2-8471-9E44EB4D49AD" />
@@ -203,10 +203,6 @@ In our case also the siddhi server</bpmn2:text>
     <bpmn2:subProcess id="Activity_188m44u" name="Cook food">
       <bpmn2:incoming>Flow_089tp6a</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0rama9x</bpmn2:outgoing>
-      <bpmn2:task id="sid-FF444875-1E9A-4371-9550-C71EF5000014" name="Cook">
-        <bpmn2:incoming>sid-D81EC9F7-62FF-4492-910C-B8158770472D</bpmn2:incoming>
-        <bpmn2:outgoing>sid-D1970F60-98C3-4540-A087-37A5A89FCD43</bpmn2:outgoing>
-      </bpmn2:task>
       <bpmn2:startEvent id="sid-3B065EB7-6331-4111-AED0-2153D5F965E4" name="Cooking order received">
         <bpmn2:outgoing>sid-D7D37340-5C2A-4C8D-BFDE-AAE4F04D754C</bpmn2:outgoing>
       </bpmn2:startEvent>
@@ -230,6 +226,13 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:sequenceFlow id="sid-D4DD4093-AD50-4B86-A348-788315DD225A" name="no" sourceRef="sid-FF145F83-25D7-4C0B-86FB-3B00A11D5FD9" targetRef="sid-D0F972F2-0332-44A9-A042-2FE38A926747">
         <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
       </bpmn2:sequenceFlow>
+      <bpmn2:userTask id="sid-FF444875-1E9A-4371-9550-C71EF5000014" name="Cook">
+        <bpmn2:extensionElements>
+          <camunda:taskListener class="org.camunda.bpm.getstarted.loanapproval.process.listeners.CookListener" event="create" />
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>sid-D81EC9F7-62FF-4492-910C-B8158770472D</bpmn2:incoming>
+        <bpmn2:outgoing>sid-D1970F60-98C3-4540-A087-37A5A89FCD43</bpmn2:outgoing>
+      </bpmn2:userTask>
     </bpmn2:subProcess>
     <bpmn2:parallelGateway id="sid-7D4BB617-B6D1-49D1-8C4F-57B4ED5CACA7" name="" gatewayDirection="Converging">
       <bpmn2:incoming>sid-96957CA5-FD92-402A-ACCB-10D75600E52C</bpmn2:incoming>
@@ -268,17 +271,13 @@ In our case also the siddhi server</bpmn2:text>
     <bpmn2:sequenceFlow id="Flow_0x7x2l0" name="no" sourceRef="Gateway_0c4m23e" targetRef="sid-804E7F2B-DA45-4001-9ADD-B54E3E3409E0">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isPhysicalCustomer}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:task id="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66" name="Eat food">
-      <bpmn2:incoming>Flow_16j3k9n</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_0mc62dw</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:sequenceFlow id="Flow_0mc62dw" sourceRef="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66" targetRef="Gateway_1q0mbje" />
     <bpmn2:sequenceFlow id="Flow_16j3k9n" sourceRef="sid-30D4E17B-D905-40F1-A337-FDEC54E6F60C" targetRef="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66" />
     <bpmn2:sequenceFlow id="Flow_1x7oa9w" name="no" sourceRef="Gateway_1q0mbje" targetRef="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{true}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isStillHungry}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_13rmzqn" name="yes" sourceRef="Gateway_1q0mbje" targetRef="Gateway_0b39xdx">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isStillHungry}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:exclusiveGateway id="sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7" name="paymentMethod?" gatewayDirection="Diverging">
       <bpmn2:incoming>Flow_0z3tq22</bpmn2:incoming>
@@ -286,10 +285,10 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>sid-E8D4D72D-61B8-45FC-B055-24F1907E76B5</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="sid-FA2BD2E3-4E33-4E86-A336-C911FAEB173D" name="Cash" sourceRef="sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7" targetRef="sid-1A2FE890-2CF9-4782-A54D-35832E82A7D1">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{true}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isCashPayment}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="sid-E8D4D72D-61B8-45FC-B055-24F1907E76B5" name="Card" sourceRef="sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7" targetRef="sid-6BBA051E-F460-4417-B098-5C6DED14CE29">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isCashPayment}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:task id="sid-6BBA051E-F460-4417-B098-5C6DED14CE29" name="Introduce data into payment terminal">
       <bpmn2:incoming>sid-E8D4D72D-61B8-45FC-B055-24F1907E76B5</bpmn2:incoming>
@@ -310,11 +309,11 @@ In our case also the siddhi server</bpmn2:text>
     <bpmn2:sequenceFlow id="Flow_0noxbkl" sourceRef="sid-1A2FE890-2CF9-4782-A54D-35832E82A7D1" targetRef="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22" />
     <bpmn2:sequenceFlow id="Flow_1se8fyo" sourceRef="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22" targetRef="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF" />
     <bpmn2:sequenceFlow id="Flow_02volgj" name="yes" sourceRef="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF" targetRef="sid-C00422B3-6514-486C-B18D-7592A21ADA33">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{true}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isGiveTip}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_0yvrcyn" sourceRef="sid-C00422B3-6514-486C-B18D-7592A21ADA33" targetRef="sid-B038F0B0-0430-4D79-B1A7-FA292895F89F" />
     <bpmn2:sequenceFlow id="Flow_00ig2uf" name="no" sourceRef="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF" targetRef="sid-B038F0B0-0430-4D79-B1A7-FA292895F89F">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isGiveTip}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:exclusiveGateway id="sid-B038F0B0-0430-4D79-B1A7-FA292895F89F" name="" gatewayDirection="Converging">
       <bpmn2:incoming>Flow_0yvrcyn</bpmn2:incoming>
@@ -350,10 +349,6 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="sid-2BA99B3B-7297-4984-B44A-ECE2464ADE00" name="" sourceRef="sid-96AEBEBD-2739-44F9-9FAC-99C89A63CA9C" targetRef="sid-AE450D80-4FAC-4C24-A89D-93FDE31DCB56" />
-    <bpmn2:task id="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22" name="Pay cash">
-      <bpmn2:incoming>Flow_0noxbkl</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_1se8fyo</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:exclusiveGateway id="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF" name="Tip?" gatewayDirection="Diverging">
       <bpmn2:incoming>Flow_1se8fyo</bpmn2:incoming>
       <bpmn2:outgoing>Flow_02volgj</bpmn2:outgoing>
@@ -367,26 +362,10 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:incoming>sid-FA2BD2E3-4E33-4E86-A336-C911FAEB173D</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0noxbkl</bpmn2:outgoing>
     </bpmn2:task>
-    <bpmn2:task id="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" name="Collect payment">
-      <bpmn2:incoming>Flow_0hb9krt</bpmn2:incoming>
-      <bpmn2:outgoing>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="sid-828404b0-1191-4162-b372-c7fb902ecca2">
-        <bpmn2:dataOutput id="sid-f5cc29c3-49e7-4b3f-9372-1bbfd0dc1f9d" />
-        <bpmn2:inputSet id="sid-1a9de531-1150-442f-83d1-af814d65b3fc" name="DefaultInputSet" />
-        <bpmn2:outputSet id="sid-95aea423-71e0-4cb9-a48e-0f0bb7a11860" name="DefaultOutputSet" />
-      </bpmn2:ioSpecification>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_07m14po">
-        <bpmn2:targetRef>DataObjectReference_0a8kpjn</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-    </bpmn2:task>
-    <bpmn2:task id="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD" name="Ask for feedback">
-      <bpmn2:incoming>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_1ugf9vf</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:sequenceFlow id="sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D" name="" sourceRef="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" targetRef="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD" />
     <bpmn2:sequenceFlow id="Flow_0hb9krt" sourceRef="sid-B038F0B0-0430-4D79-B1A7-FA292895F89F" targetRef="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" />
     <bpmn2:sequenceFlow id="sid-4CF7F63A-1040-4512-982E-3D6B037CD5C2" name="Yes&#10;" sourceRef="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408" targetRef="sid-82F0B5AC-4D75-46AF-A1B8-700DF896346E">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{false}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{isGiveFeedback}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_1ugf9vf" sourceRef="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD" targetRef="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408" />
     <bpmn2:exclusiveGateway id="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408" name="Want to give feedback?" gatewayDirection="Diverging">
@@ -399,7 +378,7 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>Flow_0fam68m</bpmn2:outgoing>
     </bpmn2:task>
     <bpmn2:sequenceFlow id="Flow_1ro8jhu" name="No" sourceRef="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408" targetRef="sid-BC29CE4B-ACD3-4812-B04B-6A72AAFDB2E3">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{true}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!isGiveFeedback}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_0fam68m" sourceRef="sid-82F0B5AC-4D75-46AF-A1B8-700DF896346E" targetRef="Activity_10jn46y" />
     <bpmn2:subProcess id="Activity_10jn46y" name="Collect feedback">
@@ -504,10 +483,6 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:incoming>Flow_1eq1sp3</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0b7kb5x</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:task id="sid-9492F81A-5D24-474D-BD39-ACF556455659" name="Leave restaurant">
-      <bpmn2:incoming>Flow_0hgehhv</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_00bu95j</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:endEvent id="EndEvent_1" name="Customer handled">
       <bpmn2:incoming>Flow_011c7en</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -520,10 +495,6 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:outgoing>Flow_1x7oa9w</bpmn2:outgoing>
       <bpmn2:outgoing>Flow_13rmzqn</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:task id="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC" name="Ask for bill">
-      <bpmn2:incoming>Flow_1x7oa9w</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_0qomdo1</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:dataStoreReference id="sid-8C8D986E-9EAE-44A7-BDE7-CCCFAE124E7A" name="Orders Table in DB" />
     <bpmn2:businessRuleTask id="Activity_1h2m1nv" name="Check for descount" camunda:resultVariable="isDiscount" camunda:decisionRef="Decision_0eigev3" camunda:mapDecisionResult="singleEntry">
       <bpmn2:incoming>Flow_0qomdo1</bpmn2:incoming>
@@ -617,9 +588,50 @@ In our case also the siddhi server</bpmn2:text>
       <bpmn2:incoming>Flow_1tm384j</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1nr21gz</bpmn2:outgoing>
     </bpmn2:userTask>
+    <bpmn2:userTask id="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66" name="Eat food">
+      <bpmn2:extensionElements>
+        <camunda:taskListener class="org.camunda.bpm.getstarted.loanapproval.process.listeners.EatFoodListener" event="create" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_16j3k9n</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0mc62dw</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC" name="Ask for bill">
+      <bpmn2:extensionElements>
+        <camunda:taskListener class="org.camunda.bpm.getstarted.loanapproval.process.listeners.AskForBillListener" event="create" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_1x7oa9w</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0qomdo1</bpmn2:outgoing>
+    </bpmn2:userTask>
     <bpmn2:task id="Activity_0301n99" name="Ask if ready to make the order">
       <bpmn2:incoming>Flow_1nr21gz</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0l31619</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:userTask id="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22" name="Pay cash">
+      <bpmn2:extensionElements>
+        <camunda:taskListener class="org.camunda.bpm.getstarted.loanapproval.process.listeners.PayCashListener" event="create" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_0noxbkl</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1se8fyo</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:task id="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD" name="Ask for feedback">
+      <bpmn2:incoming>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1ugf9vf</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:task id="sid-9492F81A-5D24-474D-BD39-ACF556455659" name="Leave restaurant">
+      <bpmn2:incoming>Flow_0hgehhv</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_00bu95j</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:task id="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF" name="Collect payment">
+      <bpmn2:incoming>Flow_0hb9krt</bpmn2:incoming>
+      <bpmn2:outgoing>sid-FE4C0797-18A5-4E3F-AD33-D22F3A91B84D</bpmn2:outgoing>
+      <bpmn2:ioSpecification>
+        <bpmn2:dataOutput />
+        <bpmn2:inputSet name="DefaultInputSet" />
+        <bpmn2:outputSet name="DefaultOutputSet" />
+      </bpmn2:ioSpecification>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_07m14po">
+        <bpmn2:targetRef>DataObjectReference_0a8kpjn</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:task>
   </bpmn2:process>
   <bpmn2:error id="sid-1250c851-b9c4-4e8b-88c7-43e43b005af0" errorCode="NO_INGRIDIENTS_LEFT" />
@@ -708,8 +720,26 @@ In our case also the siddhi server</bpmn2:text>
       <bpmndi:BPMNShape id="sid-C7BA5B18-57E7-4CEA-B0E5-C9D779B60560_gui" bpmnElement="sid-C7BA5B18-57E7-4CEA-B0E5-C9D779B60560">
         <dc:Bounds x="1440" y="869" width="41" height="41" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0fwjcv9_di" bpmnElement="Activity_0301n99">
+      <bpmndi:BPMNShape id="Activity_1xyu3v2_di" bpmnElement="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66">
+        <dc:Bounds x="2050" y="440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11mucfh_di" bpmnElement="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC">
+        <dc:Bounds x="2250" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h6jk1t_di" bpmnElement="Activity_0301n99">
         <dc:Bounds x="795" y="654" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1npgiaf_di" bpmnElement="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22">
+        <dc:Bounds x="2850" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dv88nw_di" bpmnElement="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD">
+        <dc:Bounds x="3887" y="612" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a24hfi_di" bpmnElement="sid-9492F81A-5D24-474D-BD39-ACF556455659">
+        <dc:Bounds x="4418" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vi1ffv_di" bpmnElement="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF">
+        <dc:Bounds x="3690" y="612" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_188m44u_di" bpmnElement="Activity_188m44u" isExpanded="false">
         <dc:Bounds x="1593" y="850" width="100" height="80" />
@@ -740,12 +770,6 @@ In our case also the siddhi server</bpmn2:text>
         <dc:Bounds x="2030" y="1030" width="100" height="80" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2053.7714309692383" y="1062" width="52.45713806152344" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66_gui" bpmnElement="sid-B4DFC70A-AB7B-47DC-8CEF-1BD540BE1D66">
-        <dc:Bounds x="2050" y="440" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2076.8571434020996" y="472" width="46.28571319580078" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7_gui" bpmnElement="sid-162B34DF-B0E0-460D-BF85-5D5509DAD8A7" isMarkerVisible="true">
@@ -787,12 +811,6 @@ In our case also the siddhi server</bpmn2:text>
           <dc:Bounds x="3335" y="483" width="49" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22_gui" bpmnElement="sid-E651F094-2FEF-4731-AC9F-7C0A11633A22">
-        <dc:Bounds x="2850" y="360" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2876.4714279174805" y="392" width="47.05714416503906" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF_gui" bpmnElement="sid-7D20876F-46E0-4DB3-8E53-FC1580EB2CDF" isMarkerVisible="true">
         <dc:Bounds x="3410" y="379" width="40" height="41" />
         <bpmndi:BPMNLabel>
@@ -801,18 +819,6 @@ In our case also the siddhi server</bpmn2:text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1md8thz_di" bpmnElement="sid-1A2FE890-2CF9-4782-A54D-35832E82A7D1">
         <dc:Bounds x="2645" y="612" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF_gui" bpmnElement="sid-93E87B1B-178C-4CF7-A95A-C5524D332BCF">
-        <dc:Bounds x="3690" y="612" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="3696.800003051758" y="644" width="86.39999389648438" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD_gui" bpmnElement="sid-527B81F6-1544-4A99-A162-42DBEFAE76DD">
-        <dc:Bounds x="3887" y="612" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="3891.4857177734375" y="644" width="91.028564453125" height="12" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408_gui" bpmnElement="sid-3A5C2618-2CD4-41CB-B34B-D58A6D3C1408" isMarkerVisible="true">
         <dc:Bounds x="4030" y="430" width="40" height="40" />
@@ -869,9 +875,6 @@ In our case also the siddhi server</bpmn2:text>
       <bpmndi:BPMNShape id="Activity_0qgl13a_di" bpmnElement="sid-E8C19D76-277A-442D-BC0D-0A0DA6FD73A7">
         <dc:Bounds x="4550" y="600" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0b26580_di" bpmnElement="sid-9492F81A-5D24-474D-BD39-ACF556455659">
-        <dc:Bounds x="4418" y="410" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndEvent_1">
         <dc:Bounds x="5032" y="622" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -888,12 +891,6 @@ In our case also the siddhi server</bpmn2:text>
         <dc:Bounds x="2235" y="375" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2271" y="363" width="58" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC_gui" bpmnElement="sid-E7C3BDC0-BB8B-4A1D-AC76-06A0B6EADBAC">
-        <dc:Bounds x="2250" y="490" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2271.457145690918" y="522" width="57.08570861816406" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-8C8D986E-9EAE-44A7-BDE7-CCCFAE124E7A_gui" bpmnElement="sid-8C8D986E-9EAE-44A7-BDE7-CCCFAE124E7A">
@@ -1130,7 +1127,7 @@ In our case also the siddhi server</bpmn2:text>
         <di:waypoint x="2300" y="400" />
         <di:waypoint x="2300" y="490" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2313" y="413" width="13" height="14" />
+          <dc:Bounds x="2303" y="403" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13rmzqn_di" bpmnElement="Flow_13rmzqn">
@@ -1492,12 +1489,6 @@ In our case also the siddhi server</bpmn2:text>
   </bpmndi:BPMNDiagram>
   <bpmndi:BPMNDiagram id="BPMNDiagram_0ipddnv">
     <bpmndi:BPMNPlane id="BPMNPlane_0nnifmz" bpmnElement="Activity_188m44u">
-      <bpmndi:BPMNShape id="sid-FF444875-1E9A-4371-9550-C71EF5000014_gui" bpmnElement="sid-FF444875-1E9A-4371-9550-C71EF5000014">
-        <dc:Bounds x="406" y="80" width="100" height="80" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="442.11428451538086" y="112" width="27.77143096923828" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-3B065EB7-6331-4111-AED0-2153D5F965E4_gui" bpmnElement="sid-3B065EB7-6331-4111-AED0-2153D5F965E4">
         <dc:Bounds x="174" y="105" width="30" height="30" />
         <bpmndi:BPMNLabel>
@@ -1521,6 +1512,9 @@ In our case also the siddhi server</bpmn2:text>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="422" y="269" width="70" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gy0ved_di" bpmnElement="sid-FF444875-1E9A-4371-9550-C71EF5000014">
+        <dc:Bounds x="406" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-D7D37340-5C2A-4C8D-BFDE-AAE4F04D754C_gui" bpmnElement="sid-D7D37340-5C2A-4C8D-BFDE-AAE4F04D754C">
         <di:waypoint x="204" y="120" />
