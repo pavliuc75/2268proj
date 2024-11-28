@@ -17,6 +17,11 @@ public class RestaurantController {
 
     @PostMapping("/customer-arrived")
     public String customerArrived(@RequestBody Customer customer) {
-        return restaurantService.startNewProcessInstance(customer);
+        return restaurantService.startNewProcessInstanceFromCustomerArrival(customer);
+    }
+
+    @PostMapping("/order-received")
+    public String orderReceived() {
+        return restaurantService.startNewProcessInstanceFromOrderReceived();
     }
 }

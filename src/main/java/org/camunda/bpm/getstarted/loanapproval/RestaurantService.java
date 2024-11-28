@@ -22,7 +22,7 @@ public class RestaurantService {
         this.runtimeService = runtimeService;
     }
 
-    public String startNewProcessInstance(Customer customer) {
+    public String startNewProcessInstanceFromCustomerArrival(Customer customer) {
         String sellFoodProcessDefinitionKey = "loanApproval";
         String messageName = "CustomerArrived";
 
@@ -35,6 +35,22 @@ public class RestaurantService {
                 .correlateStartMessage();
 
 //        ProcessInstance pi = runtimeService.startProcessInstanceByKey(sellFoodProcessDefinitionKey, variables);
+
+        String s = "Started process instance: " + pi.getId();
+        System.out.println(s);
+        return s;
+    }
+
+    public String startNewProcessInstanceFromOrderReceived() {
+        String messageName = "OrderReceived";
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("isPhysicalCustomer", false);
+
+
+        ProcessInstance pi = runtimeService.createMessageCorrelation(messageName)
+                .setVariables(variables)
+                .correlateStartMessage();
 
         String s = "Started process instance: " + pi.getId();
         System.out.println(s);
