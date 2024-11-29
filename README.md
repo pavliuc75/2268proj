@@ -1,21 +1,45 @@
-# Camunda Platform - Getting Started with Camunda Platform and Spring Boot
+# 2268proj
 
-This Repository contains the example Spring Boot application for the guide at [docs.camunda.org](https://docs.camunda.org/get-started/spring-boot/).
+### Key Components
+- **Python Script**: [`/customer_arrived.py`](customer_arrived.py)
+- **Siddhi Code**: [`/HostStationAtRestaurant.siddhi`](HostStationAtRestaurant.siddhi)
+- **BPMN Diagram**: [`/src/main/resources/sellFood.bpmn`](src/main/resources/sellFood.bpmn)
+- **DMN Diagram**: [`/src/main/resources/discountDecision.dmn`](src/main/resources/discountDecision.dmn)
 
-This project requires Java 17.
+---
 
-Every step of the tutorial was tagged in this repository. You can jump to the final state of each step
-by the following command:
+## Prerequisites To Run the Spring server (Camunda)
+Ensure you have the following installed:
+- **Java 17**
+- **Maven 3**
 
-```
-git checkout -f Step-X
-```
+---
 
-If you want to follow the tutorial along please clone this repository and checkout the `Start` tag.
+## How to Run the Project
 
-```
-git clone https://github.com/camunda/camunda-get-started-spring-boot.git
-git checkout -f Start
-```
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/pavliuc75/2268proj.git
+   cd 2268proj
+    ```
+2. **Run the Spring Server**
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
+3. **Access the Camunda Webapp**
+   - Go to [http://localhost:8080/](http://localhost:8080/) in your browser.
+   - Log in with the credentials `demo` and `demo`.
 
-License: The source files in this repository are made available under the [Apache License Version 2.0](./LICENSE).
+
+## Making a New Process Instance
+
+To create a new process instance (without Siddhi), use the following `curl` command:
+
+```bash
+curl -X POST http://localhost:8080/restaurant/customer-arrived \
+-H "Content-Type: application/json" \
+-d '{
+    "type": "customerArrived",
+    "age": 30
+}'
